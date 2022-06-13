@@ -4,7 +4,6 @@
   "description": "Relaxing downpour right in your editor",
   "version": "0.0.1-beta.0",
   "author": "Tor Shepherd",
-  "icon": "icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/torshepherd/raining-in-vscode"
@@ -117,7 +116,7 @@
         "rainingin.raindropMaxOpacity": {
           "type": "number",
           "minimum": 0,
-          "default": 1.0,
+          "default": 1,
           "maximum": 1,
           "description": "Set the raindropMaxOpacity value for the rain effect. 0.0 is invisible, 1.0 is opaque."
         },
