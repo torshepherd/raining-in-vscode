@@ -2,7 +2,7 @@
   "name": "raining-in",
   "displayName": "Raining In",
   "description": "Relaxing downpour right in your editor",
-  "version": "0.0.1",
+  "version": "0.0.1-beta.0",
   "author": "Tor Shepherd",
   "icon": "icon.png",
   "repository": {
@@ -157,7 +157,7 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.68.0",
+    "@types/vscode": "^1.67.0",
     "@types/glob": "^7.2.0",
     "@types/mocha": "^9.1.1",
     "@types/node": "16.x",
@@ -172,5 +172,6 @@
   "dependencies": {
     "@svgdotjs/svg.js": "^3.1.2",
     "svgdom": "^0.1.10"
-  }
+  },
+  "license": "MIT"
 }
