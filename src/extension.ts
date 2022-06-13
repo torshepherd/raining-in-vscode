@@ -67,7 +67,6 @@ export function activate(context: vscode.ExtensionContext) {
     "rainingin.enableDownpour",
     () => {
       const rainbackground = generateRainBackground(config);
-      writeFileSync("C\\Users\\Tor\\Desktop\\Projects\\raining-in\\test_rain.svg", rainbackground.toString(), "utf-8");
       const isWin = /^win/.test(process.platform);
       // @ts-ignore
       const appDir = path.dirname(require.main.filename);
