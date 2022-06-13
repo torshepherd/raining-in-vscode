@@ -2,7 +2,7 @@
 
 Inspired by [RAINING IN M I A M I](https://www.youtube.com/watch?v=1N8zRJpfnMM&t=49s), I bring you:
 
-![Raining In demo code](resources/demo.gif)
+![RAINING IN V S C O D E demo code](resources/demo.gif)
 
 For all of your soothing rain lofi vibes while coding.
 

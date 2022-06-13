@@ -119,7 +119,7 @@
     // newStyleTag.innerText = updatedThemeStyles.replace(/(\r\n|\n|\r)/gm, "");
     // document.body.appendChild(newStyleTag);
 
-    console.log("Raining In: DOWNPOUR initialised!");
+    console.log("RAINING IN V S C O D E: DOWNPOUR initialised!");
 
     // disconnect the observer because we don't need it anymore
     if (obs) {

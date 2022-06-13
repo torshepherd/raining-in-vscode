@@ -1,6 +1,6 @@
 {
   "name": "raining-in",
-  "displayName": "Raining In",
+  "displayName": "RAINING IN V S C O D E",
   "description": "Relaxing downpour right in your editor",
   "version": "0.0.1",
   "author": "Tor Shepherd",
@@ -30,15 +30,15 @@
     "commands": [
       {
         "command": "rainingin.enableDownpour",
-        "title": "Raining In: Enable Downpour"
+        "title": "RAINING IN V S C O D E: Enable Downpour"
       },
       {
         "command": "rainingin.disableDownpour",
-        "title": "Raining In: Disable Downpour"
+        "title": "RAINING IN V S C O D E: Disable Downpour"
       }
     ],
     "configuration": {
-      "title": "Raining In",
+      "title": "RAINING IN V S C O D E",
       "properties": {
         "rainingin.raindropColor": {
           "type": "string",

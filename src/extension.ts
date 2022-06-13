@@ -56,9 +56,9 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
-  console.log("Raining in is now active.");
-  const rainbackground = generateRainBackground(config);
-  writeFileSync("C:\\Users\\Tor\\Desktop\\Projects\\raining-in\\test_rain.svg", rainbackground.toString(), "utf-8");
+  console.log("RAINING IN V S C O D E is now active.");
+  // const rainbackground = generateRainBackground(config);
+  // writeFileSync("C:\\Users\\Tor\\Desktop\\Projects\\raining-in\\test_rain.svg", rainbackground.toString(), "utf-8");
 
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with registerCommand
