@@ -1,0 +1,22 @@
+# ignore node dependency directories
+node_modules/
+
+# ignore temporary compilation result file.
+dist/
+out/
+
+# ignore test result file.
+.nyc_output/
+.vscode-test/
+coverage/
+
+# ignore extension package file.
+*.vsix
+
+# ignore log files and databases
+*.log
+*.sql
+*.sqlite
+
+# ignore os manage files
+.DS_Store
