@@ -7,7 +7,6 @@
 
   // Replace the styles with the glow theme
   const initDownpour = (
-    /** @type {boolean} */ disableGlow,
     /** @type {{ disconnect: () => void; }} */ obs
   ) => {
     document.body.style.backgroundImage = 'url("rain.svg")';
@@ -177,7 +176,7 @@
   // };
 
   // try to initialise the theme
-  initDownpour(false);
+  initDownpour();
 
   // // Use a mutation observer to check when we can bootstrap the theme
   // const observer = new MutationObserver(watchForBootstrap);

@@ -1,0 +1,176 @@
+{
+  "name": "raining-in",
+  "displayName": "Raining In",
+  "description": "Relaxing downpour right in your editor",
+  "version": "0.0.1",
+  "author": "Tor Shepherd",
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "vscode": "^1.67.0"
+  },
+  "keywords": [
+    "rain",
+    "rainy",
+    "raining",
+    "miami"
+  ],
+  "categories": [
+    "Themes"
+  ],
+  "activationEvents": [
+    "*",
+    "onCommand:rainingin.enableDownpour"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "rainingin.enableDownpour",
+        "title": "Raining In: Enable Downpour"
+      },
+      {
+        "command": "rainingin.disableDownpour",
+        "title": "Raining In: Disable Downpour"
+      }
+    ],
+    "configuration": {
+      "title": "Raining In",
+      "properties": {
+        "rainingin.raindropColor": {
+          "type": "string",
+          "default": 250,
+          "description": "Set the raindropColor value for the rain effect. 0 is none, 100 is 100 drops rendered (for example)."
+        },
+        "rainingin.raindropCount": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 150,
+          "description": "Set the raindropCount value for the rain effect. 0 is none, 100 is 100 drops rendered (for example)."
+        },
+        "rainingin.raindropMinSpeed": {
+          "type": "number",
+          "default": 1,
+          "description": "Set the raindropMinSpeed value for the rain effect. 0.0 is stationary, 1.0 is normal speed."
+        },
+        "rainingin.raindropMaxSpeed": {
+          "type": "number",
+          "default": 1,
+          "description": "Set the raindropMaxSpeed value for the rain effect. 0.0 is stationary, 1.0 is normal speed."
+        },
+        "rainingin.raindropMinDelay": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0,
+          "description": "Set the raindropMinDelay value for the rain effect. 0.0 is synchronized, 1.0 is average 1 second delay."
+        },
+        "rainingin.raindropMaxDelay": {
+          "type": "number",
+          "minimum": 0,
+          "default": 10,
+          "description": "Set the raindropMaxDelay value for the rain effect. 0.0 is synchronized, 1.0 is average 1 second delay."
+        },
+        "rainingin.raindropMinDuration": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0.4,
+          "description": "Set the raindropMinDuration value for the rain effect. 0.0 is synchronized, 1.0 is average 1 second duration."
+        },
+        "rainingin.raindropMaxDuration": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0.6,
+          "description": "Set the raindropMaxDuration value for the rain effect. 0.0 is synchronized, 1.0 is average 1 second duration."
+        },
+        "rainingin.raindropMinAngle": {
+          "type": "number",
+          "default": 2,
+          "description": "Set the raindropMinAngle value for the rain effect. 0.0 is vertical, 90.0 is horizontal."
+        },
+        "rainingin.raindropMaxAngle": {
+          "type": "number",
+          "default": 12,
+          "description": "Set the raindropMaxAngle value for the rain effect. 0.0 is vertical, 90.0 is horizontal."
+        },
+        "rainingin.raindropMinSize": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1,
+          "description": "Set the raindropMinSize value for the rain effect, in how many pixels wide the raindrops are."
+        },
+        "rainingin.raindropMaxSize": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 3,
+          "description": "Set the raindropMaxSize value for the rain effect, in how many pixels wide the raindrops are."
+        },
+        "rainingin.raindropMinOpacity": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0.4,
+          "maximum": 1,
+          "description": "Set the raindropMinOpacity value for the rain effect. 0.0 is invisible, 1.0 is opaque."
+        },
+        "rainingin.raindropMaxOpacity": {
+          "type": "number",
+          "minimum": 0,
+          "default": 1.0,
+          "maximum": 1,
+          "description": "Set the raindropMaxOpacity value for the rain effect. 0.0 is invisible, 1.0 is opaque."
+        },
+        "rainingin.raindropMinLength": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 80,
+          "description": "Set the raindropMinLength value for the rain effect, in how many pixels long the raindrops are."
+        },
+        "rainingin.raindropMaxLength": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 300,
+          "description": "Set the raindropMaxLength value for the rain effect, in how many pixels long the raindrops are."
+        },
+        "rainingin.raindropMinFallHeight": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1300,
+          "description": "Set the raindropMinFallHeight value for the rain effect, in how many pixels from the top the raindrops will fall."
+        },
+        "rainingin.raindropMaxFallHeight": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1400,
+          "description": "Set the raindropMaxFallHeight value for the rain effect, in how many pixels from the top the raindrops will fall."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.68.0",
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.27.0",
+    "@typescript-eslint/parser": "^5.27.0",
+    "eslint": "^8.16.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.0.0",
+    "typescript": "^4.7.2",
+    "@vscode/test-electron": "^2.1.3"
+  },
+  "dependencies": {
+    "@svgdotjs/svg.js": "^3.1.2",
+    "svgdom": "^0.1.10"
+  }
+}
