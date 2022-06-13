@@ -1,16 +1,17 @@
-# Raining In V S C O D E
+# RAINING IN V S C O D E
+
+Inspired by [RAINING IN M I A M I](https://www.youtube.com/watch?v=1N8zRJpfnMM&t=49s), I bring you:
+
 ![Raining In demo code](resources/demo.gif)
 
-# README
-## This is the README for your extension "raining-in"
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
+For all of your soothing rain lofi vibes while coding.
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
+## Installation
 
-### For more information
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+This extension is based heavily on the method of custom CSS/JS demonstrated by [Synthwave '84](https://github.com/robb0wen/synthwave-vscode).
 
-**Enjoy!**
+## Customization
+
+## Contributing
+
+Feel free to add issues/PRs for any small bugfixes or bigger additions to the extension you'd want to see. Check out [TODO.md](TODO.md) for stuff I want to add eventually.

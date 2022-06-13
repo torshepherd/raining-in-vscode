@@ -7,7 +7,7 @@
   "icon": "icon.png",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/torshepherd/raining-in-vscode"
   },
   "engines": {
     "vscode": "^1.67.0"
