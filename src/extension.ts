@@ -87,14 +87,8 @@ export function activate(context: vscode.ExtensionContext) {
           ? "\\electron-browser\\workbench\\rain.svg"
           : "/electron-browser/workbench/rain.svg");
       try {
-        // const version = context.globalState.get(`${context.extensionName}.version`);
-        // generate production theme JS
-        const chromeStyles = readFileSync(
-          __dirname + "/css/editor_chrome.css",
-          "utf-8"
-        );
         const jsTemplate = readFileSync(
-          __dirname + "/js/theme_template.js",
+          __dirname + "/js/downpour_template.js",
           "utf-8"
         );
         writeFileSync(templateFile, jsTemplate, "utf-8");
