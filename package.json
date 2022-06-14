@@ -2,8 +2,9 @@
   "name": "raining-in",
   "displayName": "RAINING IN V S C O D E",
   "description": "Relaxing downpour right in your editor",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "author": "Tor Shepherd",
+  "icon": "resources/icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/torshepherd/raining-in-vscode"
@@ -136,7 +137,7 @@
         "rainingin.raindropMinFallHeight": {
           "type": "integer",
           "minimum": 1,
-          "default": 1300,
+          "default": 1000,
           "description": "Set the raindropMinFallHeight value for the rain effect, in how many pixels from the top the raindrops will fall."
         },
         "rainingin.raindropMaxFallHeight": {
@@ -171,7 +172,9 @@
   },
   "dependencies": {
     "@svgdotjs/svg.js": "^3.1.2",
-    "svgdom": "^0.1.10"
+    "mini-svg-data-uri": "^1.4.4",
+    "svgdom": "^0.1.10",
+    "svgo": "^2.8.0"
   },
   "license": "MIT"
 }

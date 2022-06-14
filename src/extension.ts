@@ -5,7 +5,10 @@ import path = require("path");
 import * as vscode from "vscode";
 import { registerWindow, Svg, SVG } from "@svgdotjs/svg.js";
 // @ts-ignore
+import { optimize } from "svgo";
+// @ts-ignore
 import { createSVGWindow } from "svgdom";
+
 const window = createSVGWindow();
 const document = window.document;
 
@@ -13,8 +16,6 @@ function asNotNaN(value: number, backup: number = 0): number {
   return isNaN(value) ? backup : value;
 }
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
   const vscConfig = vscode.workspace.getConfiguration("rainingin");
 
@@ -54,19 +55,19 @@ export function activate(context: vscode.ExtensionContext) {
     },
   };
 
-  // Use the console to output diagnostic information (console.log) and errors (console.error)
-  // This line of code will only be executed once when your extension is activated
   console.log("RAINING IN V S C O D E is now active.");
-  // const rainbackground = generateRainBackground(config);
-  // writeFileSync("C:\\Users\\Tor\\Desktop\\Projects\\raining-in\\test_rain.svg", rainbackground.toString(), "utf-8");
 
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with registerCommand
-  // The commandId parameter must match the command field in package.json
   let enable = vscode.commands.registerCommand(
     "rainingin.enableDownpour",
     () => {
       const rainbackground = generateRainBackground(config);
+      const result = optimize(rainbackground, {
+        // all config fields are also available here
+        multipass: true,
+      });
+      const optimizedRainBackground = result.data;
+      // console.log("[RAINING IN V S C O D E]: Generated background");
+
       const isWin = /^win/.test(process.platform);
       // @ts-ignore
       const appDir = path.dirname(require.main.filename);
@@ -86,18 +87,26 @@ export function activate(context: vscode.ExtensionContext) {
         (isWin
           ? "\\electron-browser\\workbench\\rain.svg"
           : "/electron-browser/workbench/rain.svg");
+
       try {
+        // console.log("[RAINING IN V S C O D E]: Before reading file");
+        // console.log(
+        //   "[RAINING IN V S C O D E]: " + __dirname + "/js/downpour_template.js"
+        // );
         const jsTemplate = readFileSync(
           __dirname + "/js/downpour_template.js",
           "utf-8"
         );
+        // console.log("[RAINING IN V S C O D E]: Read template");
         writeFileSync(templateFile, jsTemplate, "utf-8");
-        writeFileSync(svgFile, rainbackground.toString(), "utf-8");
+        writeFileSync(svgFile, optimizedRainBackground, "utf-8");
+        // console.log("[RAINING IN V S C O D E]: Wrote template and background");
         // modify workbench html
         const html = readFileSync(htmlFile, "utf-8");
         // check if the tag is already there
         const isEnabled = html.includes("downpour.js");
         if (!isEnabled) {
+          // console.log("[RAINING IN V S C O D E]: Stitching into workbench");
           // delete synthwave script tag if there
           let output = html.replace(
             /^.*(<!-- RAINING IN --><script src="downpour.js"><\/script><!-- TORRENTIAL DOWNPOUR -->).*\n?/gm,
@@ -215,7 +224,7 @@ function sample(param: MinMax): number {
   return Math.random() * (param.max - param.min) + param.min;
 }
 
-function generateRainBackground(config: RainConfig) {
+function generateRainBackground(config: RainConfig): string {
   // register window and document
   registerWindow(window, document);
 
@@ -244,33 +253,24 @@ function generateRainBackground(config: RainConfig) {
         y: fallHeight,
       };
 
-      const group = scene.group();
+      const stemGroup = scene.group();
 
-      const grad = scene.gradient("linear", function (add) {
+      const stemGrad = scene.gradient("linear", function (add) {
         add.stop(0, `rgba(255,255,255,0.0)`);
         add.stop(1, `rgba(255,255,255,${opacity})`);
-        // add.stop(0, `rgba(255,0,0,1.0)`);
-        // add.stop(1, `rgba(0,0,255,1.0)`);
       });
       const stem = scene
         .line(tail.x, tail.y, head.x, head.y)
-        .stroke({ color: grad.url(), width: width });
+        .stroke({ color: stemGrad.url(), width: width });
 
-      group.add(grad);
-      group.add(stem);
+      stemGroup.add(stemGrad);
+      stemGroup.add(stem);
 
-      // const anim0 = animationFragment({
-      //   attrName: "x1",
-      //   from: tail.x,
-      //   to: end.x,
-      //   duration: sample(config.duration),
-      //   delay: sample(config.delay),
-      // });
-      // console.log(anim0);
-      // [grad, stem].forEach((shape) => {
       stem.add(
         SVG(
-          `<animate attributeName="x1" from="${tail.x}" to="${
+          `<animate id="${stem.id() + "-animation"}" attributeName="x1" from="${
+            tail.x
+          }" to="${
             tail.x + travel.x
           }" dur="${duration}s" repeatCount="indefinite" begin="${delay}s"></animate>`
         )
@@ -296,15 +296,46 @@ function generateRainBackground(config: RainConfig) {
           }" dur="${duration}s" repeatCount="indefinite" begin="${delay}s"></animate>`
         )
       );
-      // });
-      group.animate(2000).ease("-").attr("values", "360").loop();
 
-      // stem.animate(2000).ease('-').attr('values', '360').loop();
-      // .animate(sample(config.duration), sample(config.delay), "now")
-      // .attr({
-      //   x1: tail.x
-      // })
-      // .loop(undefined, false);
+      // TODO: decide if we want splashes or not
+      // const splashGroup = scene.group();
+
+      // const splashGrad = scene.gradient("linear", function (add) {
+      //   add.stop(0, `rgba(255,255,255,${opacity})`);
+      //   add.stop(1, `rgba(255,255,255,0.0)`);
+      // });
+      // splashGrad.attr("gradientTransform", "rotate(90)");
+
+      // const splash = scene
+      //   .ellipse(10, 5)
+      //   .fill("rgba(255,255,255,0.0)")
+      //   .cx(head.x + travel.x)
+      //   .cy(head.y + travel.y)
+      //   .stroke({ color: splashGrad.url(), width: width });
+
+      // splashGroup.add(splashGrad);
+      // splashGroup.add(splash);
+      // splash.add(
+      //   SVG(
+      //     `<animate attributeName="rx" from="0" to="10" dur="0.2s" begin="${
+      //       stem.id() + "-animation"
+      //     }.end" repeatCount="indefinite"></animate>`
+      //   )
+      // );
+      // splash.add(
+      //   SVG(
+      //     `<animate attributeName="ry" from="0" to="5" dur="0.2s" begin="${
+      //       stem.id() + "-animation"
+      //     }.end" repeatCount="indefinite"></animate>`
+      //   )
+      // );
+      // splash.add(
+      //   SVG(
+      //     `<animate attributeName="stroke-dasharray" from="0" to="3" dur="0.2s" begin="${
+      //       stem.id() + "-animation"
+      //     }.end" repeatCount="indefinite"></animate>`
+      //   )
+      // );
     }
   }
 
