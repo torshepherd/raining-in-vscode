@@ -1,27 +1,21 @@
 // @ts-check
 
 (function () {
-  console.log(" Downpour");
-  // Grab body node
-  const bodyNode = document.querySelector("body");
+  document.body.style.backgroundImage =
+    'url("' + getSvgURI().replace(/(\r\n|\n|\r)/gm, "") + '")';
+  document.body.style.opacity = getOpacity();
 
-  // Replace the styles with the glow theme
-  const initDownpour = (
-    /** @type {{ disconnect: () => void; }} */ obs
-  ) => {
-    document.body.style.backgroundImage = 'url("rain.svg")';
-    document.body.style.opacity = "0.95";
-
-    console.log("RAINING IN V S C O D E: DOWNPOUR initialised!");
-
-    // disconnect the observer because we don't need it anymore
-    if (obs) {
-      obs.disconnect();
-      // @ts-ignore
-      obs = null;
-    }
-  };
-
-  // try to initialise the theme
-  initDownpour();
+  console.log("RAINING IN V S C O D E: DOWNPOUR initialised!");
 })();
+
+function getOpacity() {
+  const opacityStr = "OPACITYGOESHERE";
+  const opacityVal = parseFloat(opacityStr);
+  return !isNaN(opacityVal) && opacityVal >= 0.0 && opacityVal <= 1.0
+    ? opacityStr
+    : "0.95";
+}
+
+function getSvgURI() {
+  return "SVGURIGOESHERE";
+}

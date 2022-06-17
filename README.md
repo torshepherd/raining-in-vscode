@@ -8,9 +8,15 @@ For all of your soothing rain lofi vibes while coding.
 
 ## Installation
 
-This extension is based heavily on the method of custom CSS/JS demonstrated by [Synthwave '84](https://github.com/robb0wen/synthwave-vscode).
+This extension is based heavily on the method of custom CSS/JS demonstrated by [Synthwave '84](https://github.com/robb0wen/synthwave-vscode). The instructions are largely the same.
+
+[Install this extension from the VS Marketplace](https://marketplace.visualstudio.com/items?itemName=TorShepherd.raining-in).
+
+
 
 ## Customization
+
+
 
 ## Contributing
 

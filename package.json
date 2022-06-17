@@ -2,7 +2,8 @@
   "name": "raining-in",
   "displayName": "RAINING IN V S C O D E",
   "description": "Relaxing downpour right in your editor",
-  "version": "0.1.0",
+  "version": "0.1.15",
+  "preview": true,
   "author": "Tor Shepherd",
   "icon": "resources/icon.png",
   "repository": {
@@ -17,13 +18,12 @@
     "rain",
     "rainy",
     "raining",
-    "miami"
+    "lofi"
   ],
   "categories": [
     "Themes"
   ],
   "activationEvents": [
-    "*",
     "onCommand:rainingin.enableDownpour"
   ],
   "main": "./out/extension.js",
@@ -43,8 +43,30 @@
       "properties": {
         "rainingin.raindropColor": {
           "type": "string",
-          "default": 250,
-          "description": "Set the raindropColor value for the rain effect. 0 is none, 100 is 100 drops rendered (for example)."
+          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+          "default": "#FFFFFF",
+          "description": "Set the raindrop color for the rain effect."
+        },
+        "rainingin.foregroundOpacity": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0.95,
+          "maximum": 1,
+          "description": "Set the foreground opacity for the raindrop effect. Set this to the highest value you can see the raindrops."
+        },
+        "rainingin.raindropMinOpacity": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0.4,
+          "maximum": 1,
+          "description": "Set the raindropMinOpacity value for the rain effect. 0.0 is invisible, 1.0 is opaque."
+        },
+        "rainingin.raindropMaxOpacity": {
+          "type": "number",
+          "minimum": 0,
+          "default": 1,
+          "maximum": 1,
+          "description": "Set the raindropMaxOpacity value for the rain effect. 0.0 is invisible, 1.0 is opaque."
         },
         "rainingin.raindropCount": {
           "type": "integer",
@@ -54,13 +76,13 @@
         },
         "rainingin.raindropMinSpeed": {
           "type": "number",
-          "default": 1,
-          "description": "Set the raindropMinSpeed value for the rain effect. 0.0 is stationary, 1.0 is normal speed."
+          "default": 1700,
+          "description": "Set the raindropMinSpeed value for the rain effect in px/s."
         },
         "rainingin.raindropMaxSpeed": {
           "type": "number",
-          "default": 1,
-          "description": "Set the raindropMaxSpeed value for the rain effect. 0.0 is stationary, 1.0 is normal speed."
+          "default": 3500,
+          "description": "Set the raindropMaxSpeed value for the rain effect in px/s."
         },
         "rainingin.raindropMinDelay": {
           "type": "number",
@@ -73,18 +95,6 @@
           "minimum": 0,
           "default": 10,
           "description": "Set the raindropMaxDelay value for the rain effect. 0.0 is synchronized, 1.0 is average 1 second delay."
-        },
-        "rainingin.raindropMinDuration": {
-          "type": "number",
-          "minimum": 0,
-          "default": 0.4,
-          "description": "Set the raindropMinDuration value for the rain effect. 0.0 is synchronized, 1.0 is average 1 second duration."
-        },
-        "rainingin.raindropMaxDuration": {
-          "type": "number",
-          "minimum": 0,
-          "default": 0.6,
-          "description": "Set the raindropMaxDuration value for the rain effect. 0.0 is synchronized, 1.0 is average 1 second duration."
         },
         "rainingin.raindropMinAngle": {
           "type": "number",
@@ -108,20 +118,6 @@
           "default": 3,
           "description": "Set the raindropMaxSize value for the rain effect, in how many pixels wide the raindrops are."
         },
-        "rainingin.raindropMinOpacity": {
-          "type": "number",
-          "minimum": 0,
-          "default": 0.4,
-          "maximum": 1,
-          "description": "Set the raindropMinOpacity value for the rain effect. 0.0 is invisible, 1.0 is opaque."
-        },
-        "rainingin.raindropMaxOpacity": {
-          "type": "number",
-          "minimum": 0,
-          "default": 1,
-          "maximum": 1,
-          "description": "Set the raindropMaxOpacity value for the rain effect. 0.0 is invisible, 1.0 is opaque."
-        },
         "rainingin.raindropMinLength": {
           "type": "integer",
           "minimum": 1,
@@ -137,14 +133,20 @@
         "rainingin.raindropMinFallHeight": {
           "type": "integer",
           "minimum": 1,
-          "default": 1000,
+          "default": 1800,
           "description": "Set the raindropMinFallHeight value for the rain effect, in how many pixels from the top the raindrops will fall."
         },
         "rainingin.raindropMaxFallHeight": {
           "type": "integer",
           "minimum": 1,
-          "default": 1400,
+          "default": 2160,
           "description": "Set the raindropMaxFallHeight value for the rain effect, in how many pixels from the top the raindrops will fall."
+        },
+        "rainingin.windowWidth": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 3840,
+          "description": "Set the windowWidth for the rain effect. Default = 3840 (4k)."
         }
       }
     }
@@ -172,6 +174,7 @@
   },
   "dependencies": {
     "@svgdotjs/svg.js": "^3.1.2",
+    "hex-rgb": "4.3.0",
     "mini-svg-data-uri": "^1.4.4",
     "svgdom": "^0.1.10",
     "svgo": "^2.8.0"
