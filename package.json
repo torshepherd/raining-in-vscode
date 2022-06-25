@@ -2,7 +2,7 @@
   "name": "raining-in",
   "displayName": "RAINING IN V S C O D E",
   "description": "Relaxing downpour right in your editor",
-  "version": "0.1.15",
+  "version": "0.2.0",
   "preview": true,
   "author": "Tor Shepherd",
   "icon": "resources/icon.png",
@@ -24,7 +24,8 @@
     "Themes"
   ],
   "activationEvents": [
-    "onCommand:rainingin.enableDownpour"
+    "onCommand:rainingin.enableDownpour",
+    "onCommand:rainingin.disableDownpour"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -41,12 +42,6 @@
     "configuration": {
       "title": "RAINING IN V S C O D E",
       "properties": {
-        "rainingin.raindropColor": {
-          "type": "string",
-          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
-          "default": "#FFFFFF",
-          "description": "Set the raindrop color for the rain effect."
-        },
         "rainingin.foregroundOpacity": {
           "type": "number",
           "minimum": 0,
@@ -54,99 +49,110 @@
           "maximum": 1,
           "description": "Set the foreground opacity for the raindrop effect. Set this to the highest value you can see the raindrops."
         },
-        "rainingin.raindropMinOpacity": {
+        "rainingin.raindrop.color": {
+          "type": "string",
+          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+          "default": "#FFFFFF",
+          "description": "Set the raindrop color for the rain effect."
+        },
+        "rainingin.raindrop.minOpacity": {
           "type": "number",
           "minimum": 0,
           "default": 0.4,
           "maximum": 1,
-          "description": "Set the raindropMinOpacity value for the rain effect. 0.0 is invisible, 1.0 is opaque."
+          "description": "Set the raindrop minOpacity value for the rain effect. 0.0 is invisible, 1.0 is opaque."
         },
-        "rainingin.raindropMaxOpacity": {
+        "rainingin.raindrop.maxOpacity": {
           "type": "number",
           "minimum": 0,
           "default": 1,
           "maximum": 1,
-          "description": "Set the raindropMaxOpacity value for the rain effect. 0.0 is invisible, 1.0 is opaque."
+          "description": "Set the raindrop maxOpacity value for the rain effect. 0.0 is invisible, 1.0 is opaque."
         },
-        "rainingin.raindropCount": {
+        "rainingin.raindrop.count": {
           "type": "integer",
           "minimum": 1,
           "default": 150,
-          "description": "Set the raindropCount value for the rain effect. 0 is none, 100 is 100 drops rendered (for example)."
+          "description": "Set the raindrop count value for the rain effect. 0 is none, 100 is 100 drops rendered (for example)."
         },
-        "rainingin.raindropMinSpeed": {
+        "rainingin.raindrop.minSpeed": {
           "type": "number",
           "default": 1700,
-          "description": "Set the raindropMinSpeed value for the rain effect in px/s."
+          "description": "Set the raindrop minSpeed value for the rain effect in px/s."
         },
-        "rainingin.raindropMaxSpeed": {
+        "rainingin.raindrop.maxSpeed": {
           "type": "number",
           "default": 3500,
-          "description": "Set the raindropMaxSpeed value for the rain effect in px/s."
+          "description": "Set the raindrop maxSpeed value for the rain effect in px/s."
         },
-        "rainingin.raindropMinDelay": {
+        "rainingin.raindrop.minDelay": {
           "type": "number",
           "minimum": 0,
-          "default": 0,
-          "description": "Set the raindropMinDelay value for the rain effect. 0.0 is synchronized, 1.0 is average 1 second delay."
+          "default": 0.0,
+          "description": "Set the raindrop minDelay value for the rain effect. 0.0 is synchronized, 1.0 is average 1 second delay."
         },
-        "rainingin.raindropMaxDelay": {
+        "rainingin.raindrop.maxDelay": {
           "type": "number",
           "minimum": 0,
-          "default": 10,
-          "description": "Set the raindropMaxDelay value for the rain effect. 0.0 is synchronized, 1.0 is average 1 second delay."
+          "default": 3.0,
+          "description": "Set the raindrop maxDelay value for the rain effect. 0.0 is synchronized, 1.0 is average 1 second delay."
         },
-        "rainingin.raindropMinAngle": {
+        "rainingin.raindrop.minAngle": {
           "type": "number",
-          "default": 2,
-          "description": "Set the raindropMinAngle value for the rain effect. 0.0 is vertical, 90.0 is horizontal."
+          "default": 4.0,
+          "description": "Set the raindrop minAngle value for the rain effect. 0.0 is vertical, 90.0 is horizontal."
         },
-        "rainingin.raindropMaxAngle": {
+        "rainingin.raindrop.maxAngle": {
           "type": "number",
-          "default": 12,
-          "description": "Set the raindropMaxAngle value for the rain effect. 0.0 is vertical, 90.0 is horizontal."
+          "default": 10.0,
+          "description": "Set the raindrop maxAngle value for the rain effect. 0.0 is vertical, 90.0 is horizontal."
         },
-        "rainingin.raindropMinSize": {
+        "rainingin.raindrop.minSize": {
           "type": "integer",
           "minimum": 1,
           "default": 1,
-          "description": "Set the raindropMinSize value for the rain effect, in how many pixels wide the raindrops are."
+          "description": "Set the raindrop minSize value for the rain effect, in how many pixels wide the raindrops are."
         },
-        "rainingin.raindropMaxSize": {
+        "rainingin.raindrop.maxSize": {
           "type": "integer",
           "minimum": 1,
           "default": 3,
-          "description": "Set the raindropMaxSize value for the rain effect, in how many pixels wide the raindrops are."
+          "description": "Set the raindrop maxSize value for the rain effect, in how many pixels wide the raindrops are."
         },
-        "rainingin.raindropMinLength": {
+        "rainingin.raindrop.minLength": {
           "type": "integer",
           "minimum": 1,
           "default": 80,
-          "description": "Set the raindropMinLength value for the rain effect, in how many pixels long the raindrops are."
+          "description": "Set the raindrop minLength value for the rain effect, in how many pixels long the raindrops are."
         },
-        "rainingin.raindropMaxLength": {
+        "rainingin.raindrop.maxLength": {
           "type": "integer",
           "minimum": 1,
           "default": 300,
-          "description": "Set the raindropMaxLength value for the rain effect, in how many pixels long the raindrops are."
+          "description": "Set the raindrop maxLength value for the rain effect, in how many pixels long the raindrops are."
         },
-        "rainingin.raindropMinFallHeight": {
+        "rainingin.raindrop.minFallHeight": {
           "type": "integer",
           "minimum": 1,
           "default": 1800,
-          "description": "Set the raindropMinFallHeight value for the rain effect, in how many pixels from the top the raindrops will fall."
+          "description": "Set the raindrop minFallHeight value for the rain effect, in how many pixels from the top the raindrops will fall."
         },
-        "rainingin.raindropMaxFallHeight": {
+        "rainingin.raindrop.maxFallHeight": {
           "type": "integer",
           "minimum": 1,
           "default": 2160,
-          "description": "Set the raindropMaxFallHeight value for the rain effect, in how many pixels from the top the raindrops will fall."
+          "description": "Set the raindrop maxFallHeight value for the rain effect, in how many pixels from the top the raindrops will fall."
         },
-        "rainingin.windowWidth": {
+        "rainingin.window.width": {
           "type": "integer",
           "minimum": 1,
           "default": 3840,
-          "description": "Set the windowWidth for the rain effect. Default = 3840 (4k)."
+          "description": "Set the window width for the rain effect. Default = 3840 (4k)."
+        },
+        "rainingin.autoreload": {
+          "type": "boolean",
+          "default": false,
+          "description": "Reload the window automatically on enable/disable."
         }
       }
     }
