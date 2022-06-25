@@ -116,7 +116,7 @@ export function activate(context: vscode.ExtensionContext) {
           ""
         );
         // add script tag
-        output = html.replace(
+        output = output.replace(
           /\<\/html\>/g,
           `	<!-- RAINING IN --><script src="downpour_${nextIdx}.js"></script><!-- TORRENTIAL DOWNPOUR -->\n`
         );
