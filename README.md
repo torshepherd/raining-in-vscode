@@ -14,6 +14,12 @@ This extension is based heavily on the method of custom CSS/JS demonstrated by [
 
 From the command palette, run `Enable Downpour` and select `restart` to start the rain. To disable, run `Disable Downpour`.
 
+### To remove corruption warning and `[unsupported]` from title-bar
+
+Because of modifying the actual html of VS Code, it will interpret this as the core being 'corrupted' and you may see an error message on restarting your editor. You can remove it entirely with the [Fix VSCode Checksums](https://marketplace.visualstudio.com/items?itemName=lehni.vscode-fix-checksums) extension.
+
+Upon installation of 'Fix VSCode Checksums', open the command palette and execute `Fix Checksums: Apply`. You will need to completely restart VSCode after execution, reopening without fully exiting might not be enough.
+
 ## Customization
 
 Raining In offers several settings to customize the appearance of the rain:
