@@ -1,6 +1,6 @@
 # RAINING IN V S C O D E
 
-Inspired by [RAINING IN M I A M I](https://www.youtube.com/watch?v=1N8zRJpfnMM&t=49s), I bring you:
+Inspired by [RAINING IN M I A M I](https://www.youtube.com/watch?v=1N8zRJpfnMM), I bring you:
 
 ![RAINING IN V S C O D E demo code](resources/demo_2.gif)
 
