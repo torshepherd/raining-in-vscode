@@ -22,8 +22,8 @@ function workbenchPath(filename: string): string {
   return (
     base +
     (isWin
-      ? `\\electron-browser\\workbench\\${filename}`
-      : `/electron-browser/workbench/${filename}`)
+      ? `\\electron-sandbox\\workbench\\${filename}`
+      : `/electron-sandbox/workbench/${filename}`)
   );
 }
 const normalHtmlFile = workbenchPath("workbench.html");
@@ -105,8 +105,8 @@ export function activate(context: vscode.ExtensionContext) {
       // const svgFile =
       //   base +
       //   (isWin
-      //     ? "\\electron-browser\\workbench\\rain.svg"
-      //     : "/electron-browser/workbench/rain.svg");
+      //     ? "\\electron-sandbox\\workbench\\rain.svg"
+      //     : "/electron-sandbox/workbench/rain.svg");
 
       try {
         const htmlFile = getHTMLPath();
@@ -118,8 +118,8 @@ export function activate(context: vscode.ExtensionContext) {
         const templateFile =
           base +
           (isWin
-            ? `\\electron-browser\\workbench\\downpour_${nextIdx}.js`
-            : `/electron-browser/workbench/downpour_${nextIdx}.js`);
+            ? `\\electron-sandbox\\workbench\\downpour_${nextIdx}.js`
+            : `/electron-sandbox/workbench/downpour_${nextIdx}.js`);
         const jsTemplate = readFileSync(
           __dirname + "/js/downpour_template.js",
           "utf-8"
@@ -161,13 +161,15 @@ export function activate(context: vscode.ExtensionContext) {
         const vscConfig = vscode.workspace.getConfiguration("rainingin");
         const autoreload = vscConfig.get("autoreload", false);
         for (const htmlFile of [normalHtmlFile, monkeyPatchFile]) {
-          const html = getHTMLContent(htmlFile);
-          if (html.isEnabled) {
-            // delete raining in script tag if there
-            let output = deleteScriptTag(html.content);
-            writeFileSync(htmlFile, output, "utf-8");
+          if (existsSync(htmlFile)) {
+            const html = getHTMLContent(htmlFile);
+            if (html.isEnabled) {
+              // delete raining in script tag if there
+              let output = deleteScriptTag(html.content);
+              writeFileSync(htmlFile, output, "utf-8");
 
-            disabledAny = true;
+              disabledAny = true;
+            }
           }
         }
 

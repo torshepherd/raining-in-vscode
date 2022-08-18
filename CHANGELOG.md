@@ -1,3 +1,7 @@
+## 1.0.1
+- Fix breaking change in vscode that moved workbench.html from `electron-browser/` to `electron-sandbox/`
+- Fix bug that showed "you must have admin priveleges" even when users did
+
 ## 0.3.3
 
 - Fix changing color/updating settings dynamically

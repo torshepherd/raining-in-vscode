@@ -20,3 +20,6 @@ coverage/
 
 # ignore os manage files
 .DS_Store
+
+# ignore vscode workspace files
+*.code-workspace

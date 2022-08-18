@@ -16,6 +16,7 @@ export function getHTMLContent(htmlPath: string): {
 
 export function handleErrors(err: any): void {
   if (/ENOENT|EACCES|EPERM/.test(err.code)) {
+    console.log(err);
     vscode.window.showInformationMessage(
       "You must run VS code with admin privileges in order to use Raining in."
     );
