@@ -2,7 +2,7 @@
   "name": "raining-in",
   "displayName": "RAINING IN V S C O D E",
   "description": "Relaxing downpour right in your editor",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "preview": true,
   "author": "Tor Shepherd",
   "icon": "resources/icon.png",
@@ -12,7 +12,7 @@
   },
   "publisher": "TorShepherd",
   "engines": {
-    "vscode": "^1.67.0"
+    "vscode": "^1.94.0"
   },
   "keywords": [
     "rain",
@@ -23,12 +23,7 @@
   "categories": [
     "Themes"
   ],
-  "activationEvents": [
-    "*",
-    "onCommand:rainingin.enableDownpour",
-    "onCommand:rainingin.disableDownpour",
-    "onCommand:rainingin.toggleDownpour"
-  ],
+  "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
     "icons": {
@@ -181,17 +176,16 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.67.0",
-    "@types/glob": "^7.2.0",
-    "@types/mocha": "^9.1.1",
-    "@types/node": "16.x",
-    "@typescript-eslint/eslint-plugin": "^5.27.0",
-    "@typescript-eslint/parser": "^5.27.0",
-    "eslint": "^8.16.0",
-    "glob": "^8.0.3",
-    "mocha": "^10.0.0",
-    "typescript": "^4.7.2",
-    "@vscode/test-electron": "^2.1.3"
+    "@types/vscode": "^1.94.0",
+    "@types/mocha": "^10.0.9",
+    "@types/node": "22.x",
+    "@typescript-eslint/eslint-plugin": "^8.10.0",
+    "@typescript-eslint/parser": "^8.10.0",
+    "eslint": "^9.12.0",
+    "glob": "^11.0.0",
+    "mocha": "^10.7.3",
+    "typescript": "^5.6.3",
+    "@vscode/test-electron": "^2.4.1"
   },
   "dependencies": {
     "@svgdotjs/svg.js": "^3.1.2",

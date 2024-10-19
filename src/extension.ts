@@ -15,24 +15,26 @@ import {
 import { optimize } from "svgo";
 
 const isWin = /^win/.test(process.platform);
-// @ts-ignore
-const appDir = path.dirname(require.main.filename);
+const appDir = `${path.dirname(vscode.env.appRoot)}/app/out`;
 const base = appDir + (isWin ? "\\vs\\code" : "/vs/code");
+const electronBase = isVSCodeBelowVersion("1.70.0")
+  ? "electron-browser"
+  : "electron-sandbox";
 function workbenchPath(filename: string): string {
-  return (
-    base +
+  return base +
     (isWin
-      ? `\\electron-sandbox\\workbench\\${filename}`
-      : `/electron-sandbox/workbench/${filename}`)
-  );
+      ? `\\${electronBase}\\workbench\\${filename}`
+      : `/${electronBase}/workbench/${filename}`);
 }
-const normalHtmlFile = workbenchPath("workbench.html");
+const normalHtmlFile = workbenchPath("workbench.esm.html");
+
+// TODO(torshepherd): Is this right? Should this be .esm.html too:
 const monkeyPatchFile = workbenchPath("workbench-monkey-patch.html");
 
 function getHTMLPath(): string {
   if (existsSync(monkeyPatchFile)) {
     console.log(
-      "RAINING IN V S C O D E: Using workbench-monkey-patch.html instead of workbench.html"
+      "RAINING IN V S C O D E: Using workbench-monkey-patch.html instead of workbench.esm.html"
     );
     return monkeyPatchFile;
   }
@@ -93,7 +95,7 @@ export function activate(context: vscode.ExtensionContext) {
             params: {
               overrides: {
                 convertShapeToPath: false,
-                cleanupIDs: false,
+                cleanupIds: false,
               },
             },
           },
@@ -105,8 +107,8 @@ export function activate(context: vscode.ExtensionContext) {
       // const svgFile =
       //   base +
       //   (isWin
-      //     ? "\\electron-sandbox\\workbench\\rain.svg"
-      //     : "/electron-sandbox/workbench/rain.svg");
+      //     ? "\\${electronBase}\\workbench\\rain.svg"
+      //     : "/${electronBase}/workbench/rain.svg");
 
       try {
         const htmlFile = getHTMLPath();
@@ -118,8 +120,8 @@ export function activate(context: vscode.ExtensionContext) {
         const templateFile =
           base +
           (isWin
-            ? `\\electron-sandbox\\workbench\\downpour_${nextIdx}.js`
-            : `/electron-sandbox/workbench/downpour_${nextIdx}.js`);
+            ? `\\${electronBase}\\workbench\\downpour_${nextIdx}.js`
+            : `/${electronBase}/workbench/downpour_${nextIdx}.js`);
         const jsTemplate = readFileSync(
           __dirname + "/js/downpour_template.js",
           "utf-8"
@@ -214,5 +216,22 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(toggle);
 }
 
+// Returns true if the VS Code version running this extension is below the
+// version specified in the "version" parameter. Otherwise returns false.
+function isVSCodeBelowVersion(version: string) {
+  const vscodeVersion = vscode.version;
+  const vscodeVersionArray = vscodeVersion.split('.');
+  const versionArray = version.split('.');
+
+  for (let i = 0; i < versionArray.length; i++) {
+    if (vscodeVersionArray[i] < versionArray[i]) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
