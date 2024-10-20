@@ -82,28 +82,28 @@ export function generateRainBackground(config: RainConfig): string {
         SVG(
           `<animate id="${stem.id() + "-x1"}" attributeName="x1" from="${tail.x
           }" to="${tail.x + travel.x}" dur="${duration}s" begin="${delay}s;${stem.id() + "-x1"
-          }.end+${delay}s"></animate>`
+          }.end+${delay}s" repeatCount="indefinite"></animate>`
         )
       );
       stem.add(
         SVG(
           `<animate id="${stem.id() + "-x2"}" attributeName="x2" from="${head.x
           }" to="${head.x + travel.x}" dur="${duration}s" begin="${delay}s;${stem.id() + "-x2"
-          }.end+${delay}s"></animate>`
+          }.end+${delay}s" repeatCount="indefinite"></animate>`
         )
       );
       stem.add(
         SVG(
           `<animate id="${stem.id() + "-y1"}" attributeName="y1" from="${tail.y
           }" to="${tail.y + travel.y}" dur="${duration}s" begin="${delay}s;${stem.id() + "-y1"
-          }.end+${delay}s"></animate>`
+          }.end+${delay}s" repeatCount="indefinite"></animate>`
         )
       );
       stem.add(
         SVG(
           `<animate id="${stem.id() + "-y2"}" attributeName="y2" from="${head.y
           }" to="${head.y + travel.y}" dur="${duration}s" begin="${delay}s;${stem.id() + "-y2"
-          }.end+${delay}s"></animate>`
+          }.end+${delay}s" repeatCount="indefinite"></animate>`
         )
       );
 
